@@ -51,6 +51,6 @@
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "create": "gatsby-post-gen",
-    "deploy": "gatsby build && gh-pages -d public -b master -r 'git@github.com:jsh0128/jsh0128.github.io.git'"
+    "deploy": "gatsby build && gh-pages -d public -b gh-pages"
   }
 }
