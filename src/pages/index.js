@@ -4,6 +4,7 @@ import styled from "styled-components"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import dayjs from "dayjs"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
@@ -23,7 +24,7 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <ol style={{ listStyle: `none` }}>
+      <List style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
@@ -52,15 +53,23 @@ const BlogIndex = ({ data, location }) => {
             </Container>
           )
         })}
-      </ol>
+      </List>
     </Layout>
   )
 }
 
 export default BlogIndex
 
+const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+`
+
 const Container = styled(Link)`
   background-color: black;
+  margin-bottom: 1rem;
+  text-decoration: none;
   padding: 1rem;
   border-radius: 1rem;
   transition: 0.2s;
