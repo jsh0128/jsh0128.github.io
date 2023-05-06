@@ -68,6 +68,10 @@
   box-sizing: border-box;
 }
 
+img {
+  width: 100%;
+}
+
 html {
   line-height: var(--lineHeight-normal);
   font-size: var(--fontSize-root);
