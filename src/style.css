@@ -333,3 +333,40 @@ a:focus {
     list-style-position: inside;
   }
 }
+
+.link {
+  background-color: black;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  transition: 0.2s;
+  color: white;
+  border: 2px solid white;
+}
+
+.link p {
+  color: white;
+}
+
+.link h2 {
+  color: white;
+}
+
+.link article {
+  margin-top: 0;
+}
+
+.link:hover {
+  border: 2px solid black;
+  background-color: white;
+  color: black !important;
+}
+
+.link:hover p {
+  color: black;
+}
+
+.link:hover h2 {
+  color: black;
+}

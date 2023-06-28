@@ -1,10 +1,8 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
-import styled from "styled-components"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import dayjs from "dayjs"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
@@ -29,7 +27,7 @@ const BlogIndex = ({ data, location }) => {
           const title = post.frontmatter.title || post.fields.slug
 
           return (
-            <Container key={post.fields.slug} to={post.fields.slug}>
+            <Link className="link" key={post.fields.slug} to={post.fields.slug}>
               <article
                 className="post-list-item"
                 itemScope
@@ -50,7 +48,7 @@ const BlogIndex = ({ data, location }) => {
                   />
                 </section>
               </article>
-            </Container>
+            </Link>
           )
         })}
       </List>
@@ -64,37 +62,6 @@ const List = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
-`
-
-const Container = styled(Link)`
-  background-color: black;
-  margin-bottom: 1rem;
-  text-decoration: none;
-  padding: 1rem;
-  border-radius: 1rem;
-  transition: 0.2s;
-  color: white;
-  border: 2px solid white;
-  p {
-    color: white;
-  }
-  h2 {
-    color: white;
-  }
-  article {
-    margin-top: 0;
-  }
-  &:hover {
-    border: 2px solid black;
-    background-color: white;
-    color: black;
-    p {
-      color: black;
-    }
-    h2 {
-      color: black;
-    }
-  }
 `
 
 /**
