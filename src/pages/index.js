@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
-import styled from "styled-components"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -23,7 +22,14 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <List style={{ listStyle: `none` }}>
+      <div
+        style={{
+          listStyle: `none`,
+          display: "flex",
+          flexDirection: "column",
+          marginTop: "1rem",
+        }}
+      >
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
@@ -52,25 +58,19 @@ const BlogIndex = ({ data, location }) => {
             </Link>
           )
         })}
-      </List>
+      </div>
     </Layout>
   )
 }
 
 export default BlogIndex
 
-const List = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-`
-
 /**
  * Head export to define metadata for the page
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head = () => <Seo title="All posts" />
+export const Head = () => <Seo title="잘하자 성훈아" />
 
 export const pageQuery = graphql`
   {
