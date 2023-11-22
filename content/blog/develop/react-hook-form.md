@@ -4,6 +4,7 @@ date: 2023-08-04 00:00:02
 category: develop
 thumbnail: { thumbnailSrc }
 draft: false
+img: https://github.com/jsh0128/Blog/assets/52942411/3b339438-454b-4266-8ef0-927c93122f86
 ---
 
 ![react-hook-form](https://github.com/jsh0128/Blog/assets/52942411/3b339438-454b-4266-8ef0-927c93122f86)

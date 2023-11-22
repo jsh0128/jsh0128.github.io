@@ -1,4 +1,4 @@
-/* CSS Custom Properties Definitions */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.8/variable/pretendardvariable-dynamic-subset.css");
 
 :root {
   --maxWidth-none: "none";
@@ -11,7 +11,7 @@
   --maxWidth-3xl: 48rem;
   --maxWidth-4xl: 56rem;
   --maxWidth-full: "100%";
-  --maxWidth-wrapper: var(--maxWidth-2xl);
+  --maxWidth-wrapper: var(--maxWidth-4xl);
   --spacing-px: "1px";
   --spacing-0: 0;
   --spacing-1: 0.25rem;
@@ -27,12 +27,10 @@
   --spacing-20: 5rem;
   --spacing-24: 6rem;
   --spacing-32: 8rem;
-  --fontFamily-sans: "MontserratVariable", system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
-  --fontFamily-serif: "Merriweather", "Georgia", Cambria, "Times New Roman",
-    Times, serif;
+  --fontFamily-sans: Pretendard, "Pretendard Variable", "Noto Sans KR",
+    monospace;
+  --fontFamily-serif: Pretendard, "Pretendard Variable", "Noto Sans KR",
+    monospace, Times, serif;
   --font-body: var(--fontFamily-serif);
   --font-heading: var(--fontFamily-sans);
   --fontWeight-normal: 400;
@@ -278,7 +276,7 @@ a:focus {
 }
 
 .post-list-item header {
-  margin-bottom: var(--spacing-4);
+  margin-bottom: var(--spacing-2);
 }
 
 .header-link-home {
@@ -334,39 +332,72 @@ a:focus {
   }
 }
 
+.container {
+  list-style: none;
+  display: grid;
+  margin-top: 1rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
 .link {
-  background-color: black;
+  width: 100%;
+  background-color: rgb(231, 231, 231);
   margin-bottom: 1rem;
   text-decoration: none;
-  padding: 1rem;
   border-radius: 1rem;
   transition: 0.2s;
-  color: white;
-  border: 2px solid white;
+  color: black;
+}
+
+.link div {
+  padding: 1rem;
+  padding-top: 10px;
+}
+
+.link header {
+  margin-bottom: 5px;
 }
 
 .link p {
-  color: white;
+  color: black;
 }
 
 .link h2 {
-  color: white;
+  color: black;
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
 .link article {
   margin-top: 0;
+  margin-bottom: 0;
 }
 
-.link:hover {
-  border: 2px solid black;
-  background-color: white;
-  color: black !important;
+.link section {
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
 }
 
-.link:hover p {
-  color: black;
+@media (min-width: 400px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
 }
 
-.link:hover h2 {
-  color: black;
+@media (min-width: 600px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  .container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }

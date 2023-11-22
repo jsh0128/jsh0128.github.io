@@ -3,6 +3,7 @@ import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import dayjs from "dayjs"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
@@ -22,14 +23,7 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <div
-        style={{
-          listStyle: `none`,
-          display: "flex",
-          flexDirection: "column",
-          marginTop: "1rem",
-        }}
-      >
+      <div className="container">
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
@@ -40,20 +34,25 @@ const BlogIndex = ({ data, location }) => {
                 itemScope
                 itemType="http://schema.org/Article"
               >
-                <header>
-                  <h2>
-                    <span itemProp="headline">{title}</span>
-                  </h2>
-                  <small>{post.frontmatter.date}</small>
-                </header>
-                <section>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt,
-                    }}
-                    itemProp="description"
-                  />
-                </section>
+                <img src={post.frontmatter.img} />
+                <div className="">
+                  <header>
+                    <h2>
+                      <span itemProp="headline">{title}</span>
+                    </h2>
+                    <small>
+                      {dayjs(post.frontmatter.date).format("YYYY-MM-DD")}
+                    </small>
+                  </header>
+                  <section>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: post.frontmatter.description || post.excerpt,
+                      }}
+                      itemProp="description"
+                    />
+                  </section>
+                </div>
               </article>
             </Link>
           )
@@ -86,9 +85,10 @@ export const pageQuery = graphql`
           slug
         }
         frontmatter {
-          date(formatString: "MMMM DD, YYYY")
+          date
           title
           description
+          img
         }
       }
     }

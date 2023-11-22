@@ -14,9 +14,5 @@ export default function Comment() {
     commentsEl.current?.appendChild(scriptEl)
   }, [])
 
-  return (
-    <div>
-      <div ref={commentsEl} />
-    </div>
-  )
+  return <div ref={commentsEl} />
 }
