@@ -7,7 +7,6 @@ draft: false
 img: https://github.com/jsh0128/Blog/assets/52942411/3b339438-454b-4266-8ef0-927c93122f86
 ---
 
-![react-hook-form](https://github.com/jsh0128/Blog/assets/52942411/3b339438-454b-4266-8ef0-927c93122f86)
 react-hook-form 동작 방식 등 기본적인 것들에 대해서 하는 글입니다 👏
 
 react-hook-form은 렌더링 개선을 위해 만들어진 라이브러리입니다.

@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import styled from "styled-components"
 import Comment from "../components/Comment"
+import dayjs from "dayjs"
 
 const BlogPostTemplate = ({
   data: { previous, next, site, markdownRemark: post },
@@ -21,8 +22,9 @@ const BlogPostTemplate = ({
       >
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date}</p>
+          <p>{dayjs(post.frontmatter.date).format("YYYY-MM-DD")}</p>
         </header>
+        <img src={post.frontmatter.img} />
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
@@ -109,8 +111,9 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
+        date
         description
+        img
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
