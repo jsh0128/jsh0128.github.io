@@ -4,7 +4,7 @@ date: 2026-03-16 00:00:00
 category: develop
 thumbnail: { thumbnailSrc }
 draft: false
-img: https://github.com/user-attachments/assets/89d3f480-a336-4f3e-88f2-db857c4ece2e
+img: https://github.com/user-attachments/assets/5fef1fa6-babb-4a89-8d27-68397672f76e
 ---
 
 평소에 Sentry를 자주 쓰는데, 요즘 MCP를 많이 만지다 보니 자연스럽게 [getsentry/sentry-mcp](https://github.com/getsentry/sentry-mcp)에도 관심이 갔습니다. 그러다 딱 제가 잡을 만한 이슈를 하나 발견했고, 운 좋게 PR이 머지되어서 그 경험을 글로 남겨보려 합니다 😀

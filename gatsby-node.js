@@ -69,7 +69,9 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
   if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
+    // Normalize to NFC so Korean slugs match the filenames git stores on push
+    // (core.precomposeUnicode converts pushed paths to NFC); otherwise NFD links 404.
+    const value = createFilePath({ node, getNode }).normalize(`NFC`)
 
     createNodeField({
       name: `slug`,

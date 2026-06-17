@@ -54,6 +54,15 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
+          {
+            // mermaid는 코드 블록을 처리하는 다른 플러그인(prismjs 등)보다 먼저 와야 한다.
+            resolve: `gatsby-remark-mermaid`,
+            options: {
+              mermaidConfig: {
+                theme: `neutral`,
+              },
+            },
+          },
           `gatsby-remark-prismjs`,
         ],
       },
