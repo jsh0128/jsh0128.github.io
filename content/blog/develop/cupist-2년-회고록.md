@@ -4,7 +4,7 @@ date: 2026-06-17 13:00:00
 category: develop
 thumbnail: { thumbnailSrc }
 draft: false
-img: https://github.com/user-attachments/assets/32028c10-02d6-4a0f-a98b-f236b3051854
+img: https://github.com/user-attachments/assets/4af49407-94d1-42ee-b98f-423450058782
 ---
 
 Cupist에 합류한 지 어느덧 2년이 넘었네요. 돌아보니 **bella-web → rheality → genso-lab**, 세 개의 프로젝트를 거쳐왔고, 도메인도 스택도 플랫폼도 매번 달랐습니다. 사내 프로젝트라 화면을 자세히 보여드리기 어려운 게 아쉽지만 😅, 기억이 생생할 때 기록해두고 싶어서 하나의 회고록으로 묶어봤습니다.
@@ -87,7 +87,7 @@ AI 생성 이미지 기반 포토북 판매, 구독 결제, 팔로우, 포스트
 
 완성된 인터랙티브 이미지 뷰어는 포토북과 포스트에도 순차적으로 적용했어요.
 
-![WebGL 인터랙티브 이미지 뷰어 - 핀치줌/드래그 동작](https://github.com/user-attachments/assets/d11d1c56-72e8-43ad-8ea5-109606bb2b18)
+![WebGL 인터랙티브 이미지 뷰어 - 핀치줌/드래그 동작](https://github.com/user-attachments/assets/aa08185b-f3f6-4e0e-9e09-d55dd43ba413)
 
 #### queryClient 이슈 - 근본 원인을 찾아서
 

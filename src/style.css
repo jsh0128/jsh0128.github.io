@@ -267,7 +267,20 @@ a:focus {
 
 .global-main {
   max-width: var(--maxWidth-wrapper);
+  width: 100%;
+  /* Flex child: allow shrinking below content size so wide media/code
+     (e.g. a 1920px cover image, mermaid SVG) can't push horizontal overflow */
+  min-width: 0;
+  margin: 0 auto;
   padding: var(--spacing-3) var(--spacing-5);
+}
+
+/* Keep post media within the column on narrow screens */
+.blog-post img,
+.blog-post svg,
+.blog-post table {
+  max-width: 100%;
+  height: auto;
 }
 
 .global-center {
