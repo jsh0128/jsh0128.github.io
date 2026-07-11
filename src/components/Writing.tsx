@@ -1,8 +1,25 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image"
 import styled from "styled-components"
 import dayjs from "dayjs"
+
+// posts 는 index.js 의 allMarkdownRemark.nodes 형태. 각 노드에서 실제로 사용하는
+// 필드(slug, frontmatter.title/date, localImage)만 최소로 타입화한다.
+interface WritingPost {
+  fields: {
+    slug: string
+  }
+  frontmatter: {
+    title?: string | null
+    date?: string | null
+  }
+  localImage?: ImageDataLike | null
+}
+
+interface WritingProps {
+  posts: WritingPost[]
+}
 
 // 블로그(Writing): 포트폴리오 콘텐츠에 종속된 보조 섹션. 최근 글을 작고 차분한
 // 카드 목록으로 렌더한다(경력/프로젝트보다 시각적으로 덜 강조).
@@ -11,7 +28,7 @@ import dayjs from "dayjs"
 // 좌우 글자가 잘린다. 고정 비율 박스 + object-fit: contain(objectFit="contain")으로
 // 잘림 없이 표시하고, gatsbyImageData에서 aspectRatio 강제 크롭을 제거했다.
 // GatsbyImage는 기본 loading="lazy"라 접힘 아래 썸네일은 뷰포트 근처에서만 로드된다.
-const Writing = ({ posts }) => {
+const Writing: React.FC<WritingProps> = ({ posts }) => {
   return (
     <Section id="writing">
       <Header>

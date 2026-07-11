@@ -81,13 +81,6 @@ const Content = styled.div`
   max-width: var(--maxWidth-landing);
 `
 
-const Greeting = styled.p`
-  margin: var(--spacing-0) var(--spacing-0) var(--spacing-2);
-  color: var(--color-text-light);
-  font-family: var(--font-heading);
-  font-size: var(--fontSize-2);
-`
-
 const Name = styled.h1`
   margin: var(--spacing-0) var(--spacing-0) var(--spacing-4);
   font-size: clamp(2.986rem, 8vw, 5.25rem);
