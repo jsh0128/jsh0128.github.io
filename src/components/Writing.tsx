@@ -125,7 +125,7 @@ const Card = styled(Link)`
 
   &:hover {
     border-color: var(--color-brand);
-    box-shadow: 0 6px 18px -12px rgba(20, 24, 31, 0.22);
+    box-shadow: 0 6px 18px -12px var(--shadow);
   }
 `
 
@@ -139,6 +139,12 @@ const Thumb = styled.div`
   .gatsby-image-wrapper {
     width: 100%;
     height: 100%;
+  }
+
+  /* REQ-BLOG-THEME-005 — 다크에서 라이트 배경 원격 배너 썸네일의 밝은 휘도를 낮춘다.
+     다크 스코프라 라이트 모드 썸네일은 영향 없음. */
+  :root[data-theme="dark"] & img {
+    filter: brightness(0.85);
   }
 
   &.is-empty {
