@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -12,6 +13,9 @@ const BlogPostTemplate = ({
   location,
 }) => {
   const siteTitle = site.siteMetadata?.title || `Title`
+  // 상세 히어로 이미지: baseline localize 성공 시 GatsbyImage(webp/avif, blur-up),
+  // 실패/부재 시 이미지 요소 없이 degrade(AC-003-4).
+  const heroImage = getImage(post.localImage)
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -24,7 +28,13 @@ const BlogPostTemplate = ({
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{dayjs(post.frontmatter.date).format("YYYY-MM-DD")}</p>
         </header>
-        <img src={post.frontmatter.img} />
+        {heroImage && (
+          <GatsbyImage
+            image={heroImage}
+            alt=""
+            className="blog-post-hero"
+          />
+        )}
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
@@ -114,6 +124,15 @@ export const pageQuery = graphql`
         date
         description
         img
+      }
+      localImage {
+        childImageSharp {
+          gatsbyImageData(
+            width: 830
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
+        }
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {

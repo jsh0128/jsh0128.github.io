@@ -1,62 +1,28 @@
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import dayjs from "dayjs"
+import Hero from "../components/Hero"
+import Experience from "../components/Experience"
+import Writing from "../components/Writing"
 
+// @MX:ANCHOR: [AUTO] 홈 진입점 — Hero/Experience/Writing 섹션 조합의 fan_in 지점.
+// @MX:REASON: 다수 섹션 컴포넌트(Hero, Experience, Writing)가 이 페이지에서 단일
+// 랜딩으로 합류한다(REQ-BLOG-UI-001). 섹션 순서·id(#home/#about/#writing) 계약을
+// 여기서 보증한다. Hero는 풀블리드 100dvh 로 .landing 읽기 컬럼 밖에서 렌더링하고,
+// Experience/Writing 만 좁은 .landing 컬럼(~46rem) 안에 담는다. Writing은 포트폴리오
+// 콘텐츠에 종속된 보조 섹션으로 하단에 배치한다.
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
 
-  if (posts.length === 0) {
-    return (
-      <Layout location={location} title={siteTitle}>
-        <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the
-          directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.js).
-        </p>
-      </Layout>
-    )
-  }
-
   return (
     <Layout location={location} title={siteTitle}>
-      <div className="container">
-        {posts.map(post => {
-          const title = post.frontmatter.title || post.fields.slug
-
-          return (
-            <Link className="link" key={post.fields.slug} to={post.fields.slug}>
-              <article
-                className="post-list-item"
-                itemScope
-                itemType="http://schema.org/Article"
-              >
-                <img src={post.frontmatter.img} />
-                <div className="">
-                  <header>
-                    <h2>
-                      <span itemProp="headline">{title}</span>
-                    </h2>
-                    <small>
-                      {dayjs(post.frontmatter.date).format("YYYY-MM-DD")}
-                    </small>
-                  </header>
-                  <section>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: post.frontmatter.description || post.excerpt,
-                      }}
-                      itemProp="description"
-                    />
-                  </section>
-                </div>
-              </article>
-            </Link>
-          )
-        })}
+      <Hero />
+      <div className="landing">
+        <Experience />
+        <Writing posts={posts} />
       </div>
     </Layout>
   )
@@ -69,7 +35,7 @@ export default BlogIndex
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head = () => <Seo title="잘하자 성훈아" />
+export const Head = () => <Seo title="정성훈" />
 
 export const pageQuery = graphql`
   {
@@ -88,7 +54,15 @@ export const pageQuery = graphql`
           date
           title
           description
-          img
+        }
+        localImage {
+          childImageSharp {
+            gatsbyImageData(
+              width: 480
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+            )
+          }
         }
       }
     }

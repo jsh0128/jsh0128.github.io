@@ -5,7 +5,6 @@ date: 2023-05-06 22:05:92
 
 category: develop
 
-thumbnail: { thumbnailSrc }
 
 draft: false
 
