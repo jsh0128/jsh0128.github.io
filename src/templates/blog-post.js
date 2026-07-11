@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -12,6 +13,9 @@ const BlogPostTemplate = ({
   location,
 }) => {
   const siteTitle = site.siteMetadata?.title || `Title`
+  // 상세 히어로 이미지: baseline localize 성공 시 GatsbyImage(webp/avif, blur-up),
+  // 실패/부재 시 이미지 요소 없이 degrade(AC-003-4).
+  const heroImage = getImage(post.localImage)
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -24,7 +28,13 @@ const BlogPostTemplate = ({
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{dayjs(post.frontmatter.date).format("YYYY-MM-DD")}</p>
         </header>
-        <img src={post.frontmatter.img} />
+        {heroImage && (
+          <GatsbyImage
+            image={heroImage}
+            alt=""
+            className="blog-post-hero"
+          />
+        )}
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
@@ -81,16 +91,24 @@ export const Head = ({ data: { markdownRemark: post } }) => {
 
 export default BlogPostTemplate
 
+// 이전/다음 글 내비게이션: 히어로의 SocialLink/태그 칩과 같은 시각 언어(토큰 기반 칩/버튼).
+// 하드코딩 black/white 제거 → 라이트/다크 모두에서 또렷하게 읽히는 탭 가능한 버튼.
+// hover 는 브랜드색으로 반전(라이트=검정 배경/흰 글자, 다크=밝은 배경/어두운 글자).
 const CustomNextLink = styled(Link)`
   display: block;
   text-decoration: none !important;
-  border: 1px solid black;
-  padding: 0.3rem 1rem;
+  color: var(--color-heading);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 1rem;
   border-radius: 4px;
-  transition: 0.2s;
+  font-family: var(--font-heading);
+  font-weight: var(--fontWeight-bold);
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
   &:hover {
-    background-color: black;
-    color: white;
+    background: var(--color-brand);
+    color: var(--color-bg);
+    border-color: var(--color-brand);
   }
 `
 
@@ -114,6 +132,15 @@ export const pageQuery = graphql`
         date
         description
         img
+      }
+      localImage {
+        childImageSharp {
+          gatsbyImageData(
+            width: 830
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
+        }
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {

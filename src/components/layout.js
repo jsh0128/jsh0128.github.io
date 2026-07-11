@@ -1,33 +1,23 @@
 import * as React from "react"
-import { Link } from "gatsby"
-import styled from "styled-components"
+import Nav from "./Nav"
+import Footer from "./Footer"
 
+// 레이아웃: 앵커 Nav(헤더) + 메인 + Footer를 모든 페이지에 통합한다.
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
 
-  const header = (
-    <Link className="header-link-home" to="/">
-      {title}
-    </Link>
-  )
-
   return (
-    <Container className="global-wrapper" data-is-root-path={isRootPath}>
+    <div className="global-wrapper" data-is-root-path={isRootPath}>
       <header className="global-header">
-        <div className="global-header-center">{header}</div>
+        <Nav siteTitle={title} />
       </header>
       <div className="global-center">
         <main className="global-main">{children}</main>
       </div>
-    </Container>
+      <Footer />
+    </div>
   )
 }
-
-const Container = styled.div`
-  header > a {
-    color: black;
-  }
-`
 
 export default Layout
