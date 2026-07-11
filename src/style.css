@@ -65,6 +65,9 @@
   --color-bg: #ffffff;
   --color-surface: #fafafa;
   --color-border: #e7e9ee;
+  /* 그림자 색 토큰 — 다크에서 더 짙게 조정하기 위해 토큰화(Writing hover 등).
+     라이트 값은 기존 하드코딩 rgba(20,24,31,0.22)와 시각적으로 동등. */
+  --shadow: rgba(20, 24, 31, 0.22);
   /* Landing reading column (portfolio content) */
   --maxWidth-landing: 46rem;
 }
@@ -408,4 +411,37 @@ section[id] {
   max-width: var(--maxWidth-landing);
   margin: 0 auto;
   padding: var(--spacing-4) var(--spacing-0) var(--spacing-8);
+}
+
+/* =========================================================================
+   인라인 코드 테마 대응.
+   prism.css(라이트 테마)가 gatsby-browser 에서 style.css 뒤에 import 되므로,
+   .blog-post 스코프로 특이도를 높여 prism 규칙을 이긴다(소스 순서와 무관).
+   다크모드에서 인라인 코드가 밝은 박스로 튀고, 흰 text-shadow 때문에 얇은
+   글리프({ } [] 등)가 묻혀 빈 박스처럼 보이던 문제 해소. 코드 블록(pre)은
+   :not(pre) 로 제외해 prism 원본 스타일을 유지한다.
+   ========================================================================= */
+.blog-post :not(pre) > code[class*="language-"],
+.blog-post :not(pre) > code {
+  background: var(--color-surface);
+  color: var(--color-heading);
+  text-shadow: none;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.08em 0.36em;
+  font-size: 0.9em;
+}
+
+/* =========================================================================
+   공유 키보드 포커스 링 (REQ-BLOG-THEME-005).
+   라이트+다크 공통으로 적용되는 유일한 의도적 라이트 시각 변경이다. 링크/버튼 등
+   인터랙티브 표면이 UA 기본 아웃라인 대신 일관된 브랜드 링을 쓰게 통일한다.
+   기존 var(--color-brand)만 재사용(신규 색 토큰 없음). :where() 로 특이도 0 →
+   컴포넌트가 필요 시 손쉽게 오버라이드 가능. --color-brand 는 라이트 #111 /
+   다크 #f2f2f2 로 배경 대비 non-text contrast ≥3:1(WCAG 1.4.11)을 만족한다.
+   ========================================================================= */
+:where(a, button):focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 2px;
 }

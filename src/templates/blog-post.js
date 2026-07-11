@@ -91,16 +91,24 @@ export const Head = ({ data: { markdownRemark: post } }) => {
 
 export default BlogPostTemplate
 
+// 이전/다음 글 내비게이션: 히어로의 SocialLink/태그 칩과 같은 시각 언어(토큰 기반 칩/버튼).
+// 하드코딩 black/white 제거 → 라이트/다크 모두에서 또렷하게 읽히는 탭 가능한 버튼.
+// hover 는 브랜드색으로 반전(라이트=검정 배경/흰 글자, 다크=밝은 배경/어두운 글자).
 const CustomNextLink = styled(Link)`
   display: block;
   text-decoration: none !important;
-  border: 1px solid black;
-  padding: 0.3rem 1rem;
+  color: var(--color-heading);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 1rem;
   border-radius: 4px;
-  transition: 0.2s;
+  font-family: var(--font-heading);
+  font-weight: var(--fontWeight-bold);
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
   &:hover {
-    background-color: black;
-    color: white;
+    background: var(--color-brand);
+    color: var(--color-bg);
+    border-color: var(--color-brand);
   }
 `
 
