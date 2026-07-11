@@ -2,7 +2,6 @@
 title: I’m an open-source contributor.
 date: 2026-03-16 00:00:00
 category: develop
-thumbnail: { thumbnailSrc }
 draft: false
 img: https://github.com/user-attachments/assets/5fef1fa6-babb-4a89-8d27-68397672f76e
 ---

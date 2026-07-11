@@ -17,6 +17,7 @@
     "gatsby-plugin-image": "^3.9.0",
     "gatsby-plugin-manifest": "^5.9.0",
     "gatsby-plugin-sharp": "^5.9.0",
+    "gatsby-plugin-styled-components": "^6.16.0",
     "gatsby-plugin-typescript": "^5.9.0",
     "gatsby-remark-images": "^7.9.0",
     "gatsby-remark-mermaid": "^5.0.0",

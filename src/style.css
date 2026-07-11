@@ -1,6 +1,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.8/variable/pretendardvariable-dynamic-subset.css");
 
 :root {
+  color-scheme: light;
   --maxWidth-none: "none";
   --maxWidth-xs: 20rem;
   --maxWidth-sm: 24rem;
@@ -52,10 +53,41 @@
   --fontSize-7: 2.986rem;
   --color-primary: black;
   --color-text: #2e353f;
-  --color-text-light: #4f5969;
-  --color-heading: #1a202c;
-  --color-heading-black: black;
+  --color-text-light: #6b7280;
+  --color-heading: #14181f;
+  --color-heading-black: #0b0d11;
   --color-accent: #d1dce5;
+  /* Single restrained accent (indigo-blue) — used sparingly for
+     links, timeline markers, focus and small emphasis only. */
+  --color-brand: #111111;
+  --color-brand-soft: #f2f2f2;
+  /* Minimal light theme surfaces */
+  --color-bg: #ffffff;
+  --color-surface: #fafafa;
+  --color-border: #e7e9ee;
+  /* Landing reading column (portfolio content) */
+  --maxWidth-landing: 46rem;
+}
+
+/* =========================================================================
+   Dark theme — overrides every color token when <html data-theme="dark">.
+   Set before paint by the no-flash script in gatsby-ssr.js. Spacing/type
+   tokens are shared with the light :root; only colors change (CLS-safe swap).
+   The accent (--color-brand) intentionally INVERTS to near-white in dark.
+   ========================================================================= */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-primary: #f2f2f2;
+  --color-text: #cdd3dc;
+  --color-text-light: #9aa2ad;
+  --color-heading: #f3f5f8;
+  --color-heading-black: #f7f9fc;
+  --color-accent: #2b313c;
+  --color-brand: #f2f2f2;
+  --color-brand-soft: #23262d;
+  --color-bg: #0f1115;
+  --color-surface: #171a21;
+  --color-border: #262b35;
 }
 
 /* HTML elements */
@@ -75,12 +107,14 @@ html {
   font-size: var(--fontSize-root);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
   font-family: var(--font-body);
   font-size: var(--fontSize-1);
   color: var(--color-text);
+  background: var(--color-bg);
 }
 
 footer {
@@ -244,19 +278,44 @@ a:focus {
   margin: var(--spacing-0) auto;
   /* max-width: var(--maxWidth-wrapper); */
   /* padding: var(--spacing-5) var(--spacing-5); */
-}
-
-.global-wrapper[data-is-root-path="true"] .bio {
-  margin-bottom: var(--spacing-20);
-  width: 100%;
+  /* Hero의 풀블리드(width:100vw)가 세로 스크롤바 폭만큼 넘칠 때 생기는
+     가로 스크롤바를 차단. clip은 스크롤 컨테이너를 만들지 않아 sticky 헤더에
+     영향을 주지 않는다(overflow:hidden 과 다름). */
+  overflow-x: clip;
 }
 
 .global-header {
   margin-bottom: 0;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.248);
+  border-bottom: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  z-index: 10;
+  /* 로드 인트로 2단계 (pen: .header, from opacity:0 y:-100, delay 0.8s, Expo.easeInOut).
+     헤더가 위에서 크게 슬라이드다운하며 페이드인. opacity/transform 만 사용 →
+     레이아웃 이동 없음(CLS-safe). */
+  animation: introHeader 1.2s cubic-bezier(0.87, 0, 0.13, 1) 0.8s both;
+}
+
+@keyframes introHeader {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 모션 최소화 선호 시: 헤더는 즉시 최종 상태 */
+@media (prefers-reduced-motion: reduce) {
+  .global-header {
+    animation: none;
+  }
 }
 
 .global-header-center {
@@ -289,47 +348,11 @@ a:focus {
   justify-content: center;
 }
 
-.post-list-item {
-  margin-bottom: var(--spacing-8);
-  margin-top: var(--spacing-8);
-}
-
-.post-list-item p {
-  margin-bottom: var(--spacing-0);
-}
-
-.post-list-item h2 {
-  font-size: var(--fontSize-4);
-  color: white;
-  margin-bottom: var(--spacing-2);
-  margin-top: var(--spacing-0);
-}
-
-.post-list-item header {
-  margin-bottom: var(--spacing-2);
-}
-
 .header-link-home {
   font-weight: var(--fontWeight-bold);
   font-family: var(--font-heading);
   text-decoration: none;
   font-size: var(--fontSize-2);
-}
-
-.bio {
-  display: flex;
-  margin-bottom: var(--spacing-16);
-}
-
-.bio p {
-  margin-bottom: var(--spacing-0);
-}
-
-.bio-avatar {
-  margin-right: var(--spacing-4);
-  margin-bottom: var(--spacing-0);
-  min-width: 50px;
-  border-radius: 100%;
 }
 
 .blog-post header h1 {
@@ -362,71 +385,27 @@ a:focus {
   }
 }
 
-.container {
-  list-style: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
+/* Landing sections: offset anchors below the sticky header */
+section[id] {
+  scroll-margin-top: 80px;
 }
 
-.link {
-  width: 100%;
-  background-color: rgb(231, 231, 231);
-  margin-bottom: 1rem;
-  text-decoration: none;
-  border-radius: 1rem;
-  transition: 0.2s;
-  color: black;
+/* Optimized hero image on post detail (CLS-safe via gatsby-plugin-image) */
+.blog-post-hero {
+  margin-bottom: var(--spacing-8);
+  border-radius: 12px;
 }
 
-.link div {
-  padding: 1rem;
-  padding-top: 10px;
-}
+/* =========================================================================
+   Landing page (portfolio) — light theme, generous whitespace
+   All landing styling lives in styled-components (SSR-safe via
+   gatsby-plugin-styled-components) EXCEPT the reading-column wrapper below,
+   which the index page uses to constrain content width.
+   ========================================================================= */
 
-.link header {
-  margin-bottom: 5px;
-}
-
-.link p {
-  color: black;
-}
-
-.link h2 {
-  color: black;
-  font-size: 16px;
-  margin-bottom: 5px;
-}
-
-.link article {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.link section {
-  overflow: hidden;
-  white-space: normal;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  word-break: keep-all;
-}
-
-@media (min-width: 400px) {
-  .container {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (min-width: 600px) {
-  .container {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (min-width: 900px) {
-  .container {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+/* Narrow reading column for the portfolio content (~736px) */
+.landing {
+  max-width: var(--maxWidth-landing);
+  margin: 0 auto;
+  padding: var(--spacing-4) var(--spacing-0) var(--spacing-8);
 }

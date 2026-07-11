@@ -9,7 +9,7 @@
  */
 module.exports = {
   siteMetadata: {
-    title: "잘하자 성훈아",
+    title: "정성훈",
     author: {
       name: `성훈`,
       summary: ``,
@@ -17,12 +17,14 @@ module.exports = {
     description: `주로 제가 개발하면서 느낀 경험, 이슈들을 주되게 작성합니다. 이슈 해결방법보다는 이슈가 생겼던 이유, 개념에 대한 설명을 작성합니다.`,
     siteUrl: `https://jsh0128.github.io/`,
     social: {
-      instagram: "https://www.instagram.com/__wjdtjdgns/",
       linkedin:
         "https://www.linkedin.com/in/%EC%84%B1%ED%9B%88-%EC%A0%95-210691210/",
     },
   },
   plugins: [
+    // SSR로 styled-components CSS를 <head>에 주입한다.
+    // 미등록 시 컴포넌트 CSS가 클라이언트에서만 삽입되어 FOUC/레이아웃 점프(CLS)를 유발한다.
+    `gatsby-plugin-styled-components`,
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,

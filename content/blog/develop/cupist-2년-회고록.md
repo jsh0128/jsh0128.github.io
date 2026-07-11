@@ -2,7 +2,6 @@
 title: cupist 2년 회고록
 date: 2026-06-17 13:00:00
 category: develop
-thumbnail: { thumbnailSrc }
 draft: false
 img: https://github.com/user-attachments/assets/4af49407-94d1-42ee-b98f-423450058782
 ---

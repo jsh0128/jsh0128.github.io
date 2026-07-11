@@ -5,7 +5,10 @@
  */
 
 const path = require(`path`)
-const { createFilePath } = require(`gatsby-source-filesystem`)
+const {
+  createFilePath,
+  createRemoteFileNode,
+} = require(`gatsby-source-filesystem`)
 
 // Define the template for blog post
 const blogPost = path.resolve(`./src/templates/blog-post.js`)
@@ -65,8 +68,19 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 /**
  * @type {import('gatsby').GatsbyNode['onCreateNode']}
  */
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
+// @MX:WARN: [AUTO] 빌드타임 네트워크 의존 danger zone — createRemoteFileNode가 원격 썸네일을
+// 빌드 시점에 다운로드한다.
+// @MX:REASON: 원격 호스트(GitHub) 불가/404/타임아웃 시 이미지 노드를 null 처리하여
+// `gatsby build`가 abort되지 않도록 방어해야 한다(REQ-BLOG-UI-003 / AC-003-4 baseline).
+exports.onCreateNode = async ({
+  node,
+  actions,
+  getNode,
+  createNodeId,
+  cache,
+  store,
+}) => {
+  const { createNodeField, createNode } = actions
 
   if (node.internal.type === `MarkdownRemark`) {
     // Normalize to NFC so Korean slugs match the filenames git stores on push
@@ -78,6 +92,36 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       node,
       value,
     })
+
+    // Baseline 이미지 경로(DECISION = BASELINE, plan.md §2.1):
+    // frontmatter.img(원격 URL)를 빌드타임에 로컬 File 노드로 내려받아 GatsbyImage(webp/avif)로
+    // 서빙한다. 실패는 null-guard로 흡수하여 빌드 그린 유지 → fields.localImage 미설정 시
+    // Writing 카드는 텍스트 전용으로 degrade한다.
+    const remoteUrl = node.frontmatter && node.frontmatter.img
+    if (remoteUrl && /^https?:\/\//.test(remoteUrl)) {
+      let fileNode = null
+      try {
+        fileNode = await createRemoteFileNode({
+          url: remoteUrl,
+          parentNodeId: node.id,
+          createNode,
+          createNodeId,
+          cache,
+          store,
+        })
+      } catch (err) {
+        // 원격 호스트 불가/404: 빌드를 중단하지 않는다.
+        fileNode = null
+      }
+
+      if (fileNode) {
+        createNodeField({
+          name: `localImage`,
+          node,
+          value: fileNode.id,
+        })
+      }
+    }
   }
 }
 
@@ -112,16 +156,19 @@ exports.createSchemaCustomization = ({ actions }) => {
     type MarkdownRemark implements Node {
       frontmatter: Frontmatter
       fields: Fields
+      localImage: File @link(from: "fields.localImage")
     }
 
     type Frontmatter {
       title: String
       description: String
       date: Date @dateformat
+      img: String
     }
 
     type Fields {
       slug: String
+      localImage: String
     }
   `)
 }
