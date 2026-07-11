@@ -36,6 +36,21 @@ export default function Comment() {
       attributes: true,
       attributeFilter: ["data-theme"],
     })
+
+    // @MX:NOTE: [AUTO] 로드 레이스 대응 — iframe 로드 도중 테마를 토글하면
+    // MutationObserver 의 set-theme 가 아직 없는 iframe 으로 날아가 stale 로 고정된다.
+    // utterances 는 준비되면 { type: "resize" } 를 postMessage 하므로, 그 handshake
+    // 시점에 현재 테마를 재전송해 최종 테마를 반영한다. origin 은 utteranc.es 로 고정.
+    const onMessage = event => {
+      if (event.origin !== "https://utteranc.es") return
+      if (event.data && event.data.type === "resize") sendTheme()
+    }
+    window.addEventListener("message", onMessage)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("message", onMessage)
+    }
   }, [])
 
   return <div ref={commentsEl} />
