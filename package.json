@@ -11,6 +11,7 @@
   "dependencies": {
     "@fontsource/merriweather": "^4.5.14",
     "@fontsource/montserrat": "^4.5.14",
+    "@react-three/fiber": "^8.18.0",
     "dayjs": "^1.11.10",
     "gatsby": "^5.9.0",
     "gatsby-plugin-feed": "^5.9.0",
@@ -31,9 +32,11 @@
     "prismjs": "^1.29.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "styled-components": "^5.3.10"
+    "styled-components": "^5.3.10",
+    "three": "^0.169.0"
   },
   "devDependencies": {
+    "@types/three": "^0.169.0",
     "gatsby-post-gen": "^1.0.0",
     "prettier": "^2.8.8"
   },
