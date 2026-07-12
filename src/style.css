@@ -398,6 +398,8 @@ a:focus {
 /* Landing sections: offset anchors below the sticky header */
 section[id] {
   scroll-margin-top: 80px;
+  padding-left: var(--spacing-3);
+  padding-right: var(--spacing-3);
 }
 
 /* Optimized hero image on post detail (CLS-safe via gatsby-plugin-image) */
