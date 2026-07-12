@@ -67,3 +67,7 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
+
+# AI tooling (MoAI / Claude Code) — 루트(~/Documents/GitHub)에 두고 blog-v2 엔 커밋/생성하지 않음
+.claude/
+.moai/
