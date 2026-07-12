@@ -395,14 +395,11 @@ a:focus {
   }
 }
 
-/* Landing sections: offset anchors below the sticky header (Hero 포함 전역) */
+/* Landing sections: sticky-header 앵커 오프셋 + 전 섹션(Hero 포함) 좌우 여백 통일.
+   section[id] 는 Hero(#home)·Experience(#about)·Writing(#writing) 모두에 적용된다.
+   Hero 의 styled 패딩보다 특이도(0,1,1)가 높아 좌우 패딩이 12px 로 통일된다(의도된 통일). */
 section[id] {
   scroll-margin-top: 80px;
-}
-
-/* 좌우 여백은 .landing 안의 섹션(Experience/Writing)에만 — Hero(#home)는 .landing 밖이라
-   제외되어 자체 styled 패딩(--spacing-6/--spacing-5)을 유지한다. 특이도 (0,2,1)로 styled 초과. */
-.landing section[id] {
   padding-left: var(--spacing-3);
   padding-right: var(--spacing-3);
 }
