@@ -3,6 +3,7 @@ title: 개발이 아니라 워크플로우를 만들기로 했다
 date: 2026-08-17 21:00:00
 category: develop
 draft: false
+img: https://raw.githubusercontent.com/jsh0128/jsh0128.github.io/main/content/blog/develop/slack-bot-workflow-thumb.png
 ---
 
 지난 7월, [Workflow Show & Tell 서울](https://workflow-show-tell-seoul-2026.swhan0329.chatgpt.site/ko)이라는 행사에 다녀왔습니다. OpenAI Build Week 기간에 열린 커뮤니티 이벤트였는데, '실전 AI Workflow 8개'라는 부제처럼 여덟 분이 각자 실무에 AI를 어떻게 녹여 쓰는지를 보여주는 자리였죠 😀
